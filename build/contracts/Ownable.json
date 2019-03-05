@@ -81,9 +81,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\r\n\r\n/// Provides basic authorization control\r\ncontract Ownable {\r\n    address private origOwner;\r\n\r\n    // Define an Event\r\n    event TransferOwnership(address indexed oldOwner, address indexed newOwner);\r\n\r\n    /// Assign the contract to an owner\r\n    constructor () internal {\r\n        origOwner = msg.sender;\r\n        emit TransferOwnership(address(0), origOwner);\r\n    }\r\n\r\n    /// Look up the address of the owner\r\n    function owner() public view returns (address) {\r\n        return origOwner;\r\n    }\r\n\r\n    /// Define a function modifier 'onlyOwner'\r\n    modifier onlyOwner() {\r\n        require(isOwner());\r\n        _;\r\n    }\r\n\r\n    /// Check if the calling address is the owner of the contract\r\n    function isOwner() public view returns (bool) {\r\n        return msg.sender == origOwner;\r\n    }\r\n\r\n    /// Define a function to renounce ownerhip\r\n    function renounceOwnership() public onlyOwner {\r\n        emit TransferOwnership(origOwner, address(0));\r\n        origOwner = address(0);\r\n    }\r\n\r\n    /// Define a public function to transfer ownership\r\n    function transferOwnership(address newOwner) public onlyOwner {\r\n        _transferOwnership(newOwner);\r\n    }\r\n\r\n    /// Define an internal function to transfer ownership\r\n    function _transferOwnership(address newOwner) internal {\r\n        require(newOwner != address(0));\r\n        emit TransferOwnership(origOwner, newOwner);\r\n        origOwner = newOwner;\r\n    }\r\n}\r\n",
-  "sourcePath": "D:\\repo\\Wine Supply Chain\\contracts\\coffeecore\\Ownable.sol",
+  "sourcePath": "D:\\repo\\wine_supply_chain\\contracts\\winecore\\Ownable.sol",
   "ast": {
-    "absolutePath": "/D/repo/Wine Supply Chain/contracts/coffeecore/Ownable.sol",
+    "absolutePath": "/D/repo/wine_supply_chain/contracts/winecore/Ownable.sol",
     "exportedSymbols": {
       "Ownable": [
         877
@@ -1445,7 +1445,7 @@
     "src": "0:1460:7"
   },
   "legacyAST": {
-    "absolutePath": "/D/repo/Wine Supply Chain/contracts/coffeecore/Ownable.sol",
+    "absolutePath": "/D/repo/wine_supply_chain/contracts/winecore/Ownable.sol",
     "exportedSymbols": {
       "Ownable": [
         877
@@ -2812,5 +2812,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.2",
-  "updatedAt": "2019-03-05T05:50:41.733Z"
+  "updatedAt": "2019-03-05T16:23:19.479Z"
 }
