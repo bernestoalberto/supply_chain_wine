@@ -15,3 +15,4 @@ DApp supply chain solution backed by the Ethereum platform. Architecting smart c
 • Solidity
 • React
 • Ganache
+• Truffle
