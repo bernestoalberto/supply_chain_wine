@@ -8,47 +8,47 @@ contract FillerPackerRole {
   using Roles for Roles.Role;
 
   // Define 2 events, one for Adding, and other for Removing
-  event FarmerAdded(address indexed account);
-  event FarmerRemoved(address indexed account);
+  event FillerPackerAdded(address indexed account);
+  event FillerPackerRemoved(address indexed account);
 
-  // Define a struct 'farmers' by inheriting from 'Roles' library, struct Role
-  Roles.Role private farmers;
+  // Define a struct 'FillerPackers' by inheriting from 'Roles' library, struct Role
+  Roles.Role private fillerPackers;
 
-  // In the constructor make the address that deploys this contract the 1st farmer
+  // In the constructor make the address that deploys this contract the 1st FillerPacker
   constructor() public {
-    _addFarmer(msg.sender);
+    _addFillerPacker(msg.sender);
   }
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
-  modifier onlyFarmer() {
-    require(isFarmer(msg.sender));
+  modifier onlyFillerPacker() {
+    require(isFillerPacker(msg.sender));
     _;
   }
 
-  // Define a function 'isFarmer' to check this role
-  function isFarmer(address account) public view returns (bool) {
-    return farmers.has(account);
+  // Define a function 'isFillerPacker' to check this role
+  function isFillerPacker(address account) public view returns (bool) {
+    return fillerPackers.has(account);
   }
 
-  // Define a function 'addFarmer' that adds this role
-  function addFarmer(address account) public onlyFarmer {
-    _addFarmer(account);
+  // Define a function 'addFillerPacker' that adds this role
+  function addFillerPacker(address account) public onlyFillerPacker {
+    _addFillerPacker(account);
   }
 
-  // Define a function 'renounceFarmer' to renounce this role
-  function renounceFarmer() public {
-    _removeFarmer(msg.sender);
+  // Define a function 'renounceFillerPacker' to renounce this role
+  function renounceFillerPacker() public {
+    _removeFillerPacker(msg.sender);
   }
 
-  // Define an internal function '_addFarmer' to add this role, called by 'addFarmer'
-  function _addFarmer(address account) internal {
-    farmers.add(account);
-    emit FarmerAdded(account);
+  // Define an internal function '_addFillerPacker' to add this role, called by 'addFillerPacker'
+  function _addFillerPacker(address account) internal {
+    fillerPackers.add(account);
+    emit FillerPackerAdded(account);
   }
 
-  // Define an internal function '_removeFarmer' to remove this role, called by 'removeFarmer'
-  function _removeFarmer(address account) internal {
-    farmers.remove(account);
-    emit FarmerRemoved(account);
+  // Define an internal function '_removeFillerPacker' to remove this role, called by 'removeFillerPacker'
+  function _removeFillerPacker(address account) internal {
+    fillerPackers.remove(account);
+    emit FillerPackerRemoved(account);
   }
 }

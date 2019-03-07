@@ -4,35 +4,35 @@ pragma solidity ^0.4.24;
 import "./Roles.sol";
 
 // Define a contract 'FarmerRole' to manage this role - add, remove, check
-contract BulkDistrubutorRole {
+contract BulkDistributorRole {
   using Roles for Roles.Role;
 
   // Define 2 events, one for Adding, and other for Removing
-  event bulkDistrubutorAdded(address indexed account);
-  event bulkDistrubutorAdded(address indexed account);
+  event bulkDistributorAdded(address indexed account);
+  event bulkDistributorRemoved(address indexed account);
 
-  // Define a struct 'bulkDistrubutors' by inheriting from 'Roles' library, struct Role
-  Roles.Role private bulkDistrubutors;
+  // Define a struct 'bulkDistributors' by inheriting from 'Roles' library, struct Role
+  Roles.Role private bulkDistributors;
 
-  // In the constructor make the address that deploys this contract the 1st bulkDistrubutor
+  // In the constructor make the address that deploys this contract the 1st bulkDistributor
   constructor() public {
-    _addbulkDistrubutor(msg.sender);
+    _addbulkDistributor(msg.sender);
   }
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
-  modifier onlyBulkDistrubutor() {
-    require(isBulkDistrubutor(msg.sender));
+  modifier onlybulkDistributor() {
+    require(isbulkDistributor(msg.sender));
     _;
   }
 
-  // Define a function 'isBulkDistrubutor' to check this role
-  function isBulkDistrubutor(address account) public view returns (bool) {
-    return bulkDistrubutors.has(account);
+  // Define a function 'isbulkDistributor' to check this role
+  function isbulkDistributor(address account) public view returns (bool) {
+    return bulkDistributors.has(account);
   }
 
-  // Define a function 'addBulkDistrubutor' that adds this role
-  function addBulkDistrubutor(address account) public onlyBulkDistrubutor {
-    _addbulkDistrubutor(account);
+  // Define a function 'addbulkDistributor' that adds this role
+  function addbulkDistributor(address account) public onlybulkDistributor {
+    _addbulkDistributor(account);
   }
 
   // Define a function 'renounceBulkDistributor' to renounce this role
@@ -40,15 +40,15 @@ contract BulkDistrubutorRole {
     _removeBulkDistributor(msg.sender);
   }
 
-  // Define an internal function '_addbulkDistrubutor' to add this role, called by 'addBulkDistrubutor'
-  function _addbulkDistrubutor(address account) internal {
-    bulkDistrubutors.add(account);
-    emit bulkDistrubutorAdded(account);
+  // Define an internal function '_addbulkDistributor' to add this role, called by 'addbulkDistributor'
+  function _addbulkDistributor(address account) internal {
+    bulkDistributors.add(account);
+    emit bulkDistributorAdded(account);
   }
 
   // Define an internal function '_removeBulkDistributor' to remove this role, called by 'removeFarmer'
   function _removeBulkDistributor(address account) internal {
-    bulkDistrubutors.remove(account);
-    emit bulkDistrubutorAdded(account);
+    bulkDistributors.remove(account);
+    emit bulkDistributorAdded(account);
   }
 }

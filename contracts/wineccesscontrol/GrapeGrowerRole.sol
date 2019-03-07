@@ -4,12 +4,12 @@ pragma solidity ^0.4.24;
 import "./Roles.sol";
 
 // Define a contract 'FarmerRole' to manage this role - add, remove, check
-contract GrapeGrowRole {
+contract GrapeGrowerRole {
   using Roles for Roles.Role;
 
   // Define 2 events, one for Adding, and other for Removing
   event grapeGrowerAdded(address indexed account);
-  event grapeGrowerAdded(address indexed account);
+  event grapeGrowerRemoved(address indexed account);
 
   // Define a struct 'grapeGrowers' by inheriting from 'Roles' library, struct Role
   Roles.Role private grapeGrowers;
