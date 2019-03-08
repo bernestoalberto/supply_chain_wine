@@ -13,7 +13,7 @@
 * IPFS-http-client 29.1.1
 * openzeppelin-solidity 2.0.0
 * Ethereum 6.0.3
-* Node 11.10.1
+* Node 11.11.0
 * Solidity
 * React 16.8.3
 * Ganache-cli  6.23

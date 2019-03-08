@@ -1,4 +1,7 @@
 pragma solidity ^0.4.24;
+
+import "../wineccesscontrol/RetailerRole.sol";
+import "../wineccesscontrol/Consumer.sol";
 // Define a contract 'Supplychain'
 contract SupplyChain {
 
@@ -153,40 +156,45 @@ require(items[_upc].itemState == State.Shipped);
   }
 
   // Define a function 'harvestItem' that allows a GrapeGrower to mark an item 'Harvested'
-  function harvestItem(uint _upc, address _originGrapeGrowerID, string _originGrapeGrowerName, string _originGrapeGrowerInformation, string  _originGrapeGrowerLatitude, string  _originGrapeGrowerLongitude, string  _productNotes) public 
+  function harvestItem(uint _upc, address _originGrapeGrowerID, string _originGrapeGrowerName, string _originGrapeGrowerInformation,
+   string  _originGrapeGrowerLatitude, string  _originGrapeGrowerLongitude, string  _productNotes) public 
   {
     // Add the new item as part of Harvest
-    
+    items[_upc].itemState = State.Harvested;
     // Increment sku
     sku = sku + 1;
     // Emit the appropriate event
-    
+    Harvested(_upc);
   }
 
   // Define a function 'processtItem' that allows a GrapeGrower to mark an item 'Processed'
   function processItem(uint _upc) public 
   // Call modifier to check if upc has passed previous supply chain stage
-  
+     
   // Call modifier to verify caller of this function
-  
+
   {
+     require(itemsHistory[_upc]));
+   verifyCaller(items[_upc].ownerID);
     // Update the appropriate fields
-    
+    items[_upc].itemState = State.Processed;
     // Emit the appropriate event
-    
+    Processed(_upc);
   }
 
   // Define a function 'packItem' that allows a GrapeGrower to mark an item 'Packed'
   function packItem(uint _upc) public 
   // Call modifier to check if upc has passed previous supply chain stage
-  
+ 
   // Call modifier to verify caller of this function
-  
+ 
   {
+     require(itemsHistory[_upc]));
+       verifyCaller(items[_upc].ownerID);
     // Update the appropriate fields
-    
+    items[_upc].itemState = State.Packed;
     // Emit the appropriate event
-    
+    Packed(_upc);
   }
 
   // Define a function 'sellItem' that allows a GrapeGrower to mark an item 'ForSale'
@@ -196,10 +204,14 @@ require(items[_upc].itemState == State.Shipped);
   // Call modifier to verify caller of this function
   
   {
+
+      {
+      require(itemsHistory[_upc]));
+       verifyCaller(items[_upc].ownerID);
     // Update the appropriate fields
-    
+      forSale(_upc);
     // Emit the appropriate event
-    
+    ForSale(_upc);
   }
 
   // Define a function 'buyItem' that allows the disributor to mark an item 'Sold'
@@ -213,13 +225,19 @@ require(items[_upc].itemState == State.Shipped);
     // Call modifer to send any excess ether back to buyer
     
     {
-    
+      require(itemsHistory[_upc]));
+      paidEnough(_upc);
+       checkValue(_upc);
+
     // Update the appropriate fields - ownerID, distributorID, itemState
-    
+   itemsHistory[_upc].ownerID= items[_upc].distributorID;
+    itemsHistory[_upc].distributorID = items[_upc].distributorID;
+    sold(_upc);
     // Transfer money to GrapeGrower
-    
+    address _sender = items[_upc].ownerID;
+    _sender.send(msg.value);
     // emit the appropriate event
-    
+    Sold(_upc);
   }
 
   // Define a function 'shipItem' that allows the distributor to mark an item 'Shipped'
@@ -230,10 +248,12 @@ require(items[_upc].itemState == State.Shipped);
     // Call modifier to verify caller of this function
     
     {
+       require(itemsHistory[_upc]));
+       verifyCaller(items[_upc].ownerID);
     // Update the appropriate fields
-    
+      shipped(_upc);
     // Emit the appropriate event
-    
+      Shipped(_upc);
   }
 
   // Define a function 'receiveItem' that allows the retailer to mark an item 'Received'
@@ -243,10 +263,12 @@ require(items[_upc].itemState == State.Shipped);
     
     // Access Control List enforced by calling Smart Contract / DApp
     {
+         require(itemsHistory[_upc]));
+         _isRetailer(items[_upc.ownerID]);
     // Update the appropriate fields - ownerID, retailerID, itemState
-    
+    received(_upc);
     // Emit the appropriate event
-    
+    Received(_upc);
   }
 
   // Define a function 'purchaseItem' that allows the consumer to mark an item 'Purchased'
@@ -256,10 +278,14 @@ require(items[_upc].itemState == State.Shipped);
     
     // Access Control List enforced by calling Smart Contract / DApp
     {
+  require(itemsHistory[_upc]));
+  _isConsumer(items[_upc.ownerID]);
     // Update the appropriate fields - ownerID, consumerID, itemState
-    
+     itemsHistory[_upc].ownerID= items[_upc].consumerID;
+    itemsHistory[_upc].distributorID = items[upc].distributorID;
+    purchased(_upc);
     // Emit the appropriate event
-    
+    Purchased(_upc);
   }
 
   // Define a function 'fetchItemBufferOne' that fetches the data
@@ -280,14 +306,14 @@ require(items[_upc].itemState == State.Shipped);
     
   return 
   (
-  itemSKU,
-  itemUPC,
-  ownerID,
-  originGrapeGrowerID,
-  originGrapeGrowerName,
-  originGrapeGrowerInformation,
-  originGrapeGrowerLatitude,
-  originGrapeGrowerLongitude
+  itemSKU =3;
+  itemUPC =3;
+  ownerID = '0xaddc2954a1759bd8207ba7d3e69ecf0daa1539ff';
+  originGrapeGrowerID='0xdc196587b59a8accbab502a642ce96ae71e017e1';
+  originGrapeGrowerName='Sauvingon';
+  originGrapeGrowerInformation='Viva la France';
+  originGrapeGrowerLatitude= '44.8378° N';
+  originGrapeGrowerLongitude = '0.5792° W';
   );
   }
 
@@ -310,15 +336,15 @@ require(items[_upc].itemState == State.Shipped);
     
   return 
   (
-  itemSKU,
-  itemUPC,
-  productID,
-  productNotes,
-  productPrice,
-  itemState,
-  distributorID,
-  retailerID,
-  consumerID
+  itemSKU = 2;
+  itemUPC = 2;
+  productID = '22';
+  productNotes = 'Product from Spain';
+  productPrice = 12.5;
+  itemState = 'Packed';
+  distributorID = '0xfa937f92f8a106dcac3f3d2d8930e07e540a596d';
+  retailerID = '0xd69ba0709d161543fa19fa67c2e3ee95da33fb72';
+  consumerID = '0x4ae0f84a7ad98e6cd3d8c11a7f4e5d9398d364e8'
   );
   }
 }
