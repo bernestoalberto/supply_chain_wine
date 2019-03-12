@@ -107,19 +107,24 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        
+         let eventEmitted  = false;
         
         // Watch the emitted event Packed()
-        
+        let event = supplyChain.packed();
+        await event.watch((err,res)=>{
+           eventEmitted=true;
+        });
 
         // Mark an item as Packed by calling function packItem()
         
-
+        let event = supplyChain.packItem(upc);
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const item = supplyChain.fetchItemBufferOne(upc);
 
         // Verify the result set
-        
+        // Verify the result set
+        assert.equal(itemFetched, item, 'Item processed ');
+        assert.equal(eventEmitted, true, 'Invalid event emitted');
     })    
 
     // 4th Test
@@ -127,19 +132,19 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        
+        let eventEmitted = false;
         
         // Watch the emitted event ForSale()
-        
+        let event = supplyChain.forSale(upc);
 
         // Mark an item as ForSale by calling function sellItem()
-        
-
+        supplyChain.sellItem(upc);
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         
-
+        const item = supplyChain.fetchItemBufferOne(upc);
         // Verify the result set
-          
+        assert.equal(itemFetched, item, 'Item processed ');
+        assert.equal(eventEmitted, true, 'Invalid event emitted');
     })    
 
     // 5th Test
@@ -147,20 +152,21 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        
+        let eventEmitted = false;
         
         // Watch the emitted event Sold()
-        var event = supplyChain.Sold()
+        var event = supplyChain.sold(upc);
         
 
         // Mark an item as Sold by calling function buyItem()
-        
+           supplyChain.buyItem(upc);
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         
-
+        const item = supplyChain.fetchItemBufferTwo(upc);
         // Verify the result set
-        
+        assert.equal(itemFetched, item, 'Item processed ');
+        assert.equal(eventEmitted, true, 'Invalid event emitted');
     })    
 
     // 6th Test
@@ -169,18 +175,19 @@ contract('SupplyChain', function(accounts) {
         
         // Declare and Initialize a variable for event
         
-        
+        let eventEmitted = false;
         // Watch the emitted event Shipped()
-        
+        let event = supplyChain.shipItem(upc);
 
         // Mark an item as Sold by calling function buyItem()
         
-
+               supplyChain.buyItem(upc);
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const item = supplyChain.fetchItemBufferTwo(upc);
 
         // Verify the result set
-              
+        assert.equal(itemFetched, item, 'Item processed ');
+        assert.equal(eventEmitted, true, 'Invalid event emitted');    
     })    
 
     // 7th Test
@@ -188,19 +195,21 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        
+        let event = false;
         
         // Watch the emitted event Received()
-        
+        let event = supplyChain.received(upc);
 
         // Mark an item as Sold by calling function buyItem()
-        
+         
+         supplyChain.buyItem(upc);
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const item = supplyChain.fetchItemBufferTwo(upc);
 
         // Verify the result set
-             
+        assert.equal(itemFetched, item, 'Item processed ');
+        assert.equal(eventEmitted, true, 'Invalid event emitted'); 
     })    
 
     // 8th Test
@@ -208,19 +217,20 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        
+        let eventEmitted = false;
         
         // Watch the emitted event Purchased()
-        
+          supplyChain.purchased(upc);
 
         // Mark an item as Sold by calling function buyItem()
         
-
+        supplyChain.buyItem(upc);
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         
-
+        const item = supplyChain.fetchItemBufferTwo(upc);
         // Verify the result set
-        
+        assert.equal(itemFetched, item, 'Item processed ');
+        assert.equal(eventEmitted, true, 'Invalid event emitted'); 
     })    
 
     // 9th Test
@@ -229,9 +239,9 @@ contract('SupplyChain', function(accounts) {
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         
-        
+        const item = supplyChain.fetchItemBufferTwo(upc);
         // Verify the result set:
-        
+        assert.equal(itemFetched, item, 'Item processed ');
     })
 
     // 10th Test
@@ -239,10 +249,10 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const item = supplyChain.fetchItemBufferOne(upc);
         
         // Verify the result set:
-        
+        assert.equal(itemFetched, item, 'Item processed ');
     })
 
 });

@@ -17,6 +17,7 @@ contract WineProducerRole {
   // In the constructor make the address that deploys this contract the 1st farmer
   constructor() public {
     _addWineProducer(msg.sender);
+
   }
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
