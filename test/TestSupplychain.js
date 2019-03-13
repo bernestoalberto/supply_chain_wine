@@ -46,10 +46,10 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        var eventEmitted = false
+        let eventEmitted = false
         
         // Watch the emitted event Harvested()
-        var event = supplyChain.Harvested()
+        let event = supplyChain.Harvested()
         await event.watch((err, res) => {
             eventEmitted = true
         })
@@ -86,8 +86,8 @@ contract('SupplyChain', function(accounts) {
    
         
         // Watch the emitted event Processed()
-        let event = supplyChain.processed();
-        await event.watch((err, res)=>{
+        let event1 = supplyChain.processed();
+        await event1.watch((err, res)=>{
             eventEmitted = true
       }) 
         // Mark an item as Processed by calling function processtItem()
@@ -110,14 +110,17 @@ contract('SupplyChain', function(accounts) {
          let eventEmitted  = false;
         
         // Watch the emitted event Packed()
-        let event = supplyChain.packed();
-        await event.watch((err,res)=>{
+        let event2 = supplyChain.packed();
+        await event2.watch((err,res)=>{
            eventEmitted=true;
         });
 
         // Mark an item as Packed by calling function packItem()
         
-        let event = supplyChain.packItem(upc);
+        let event3 = supplyChain.packItem(upc);
+        await event3.watch((err,res)=>{
+            eventEmitted=true;
+         });
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const item = supplyChain.fetchItemBufferOne(upc);
 
@@ -135,8 +138,10 @@ contract('SupplyChain', function(accounts) {
         let eventEmitted = false;
         
         // Watch the emitted event ForSale()
-        let event = supplyChain.forSale(upc);
-
+        let event4 = supplyChain.forSale(upc);
+        await event4.watch((err,res)=>{
+            eventEmitted=true;
+         });
         // Mark an item as ForSale by calling function sellItem()
         supplyChain.sellItem(upc);
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -155,8 +160,10 @@ contract('SupplyChain', function(accounts) {
         let eventEmitted = false;
         
         // Watch the emitted event Sold()
-        var event = supplyChain.sold(upc);
-        
+        let event5 = supplyChain.sold(upc);
+        await event5.watch((err,res)=>{
+            eventEmitted=true;
+         });
 
         // Mark an item as Sold by calling function buyItem()
            supplyChain.buyItem(upc);
@@ -177,8 +184,10 @@ contract('SupplyChain', function(accounts) {
         
         let eventEmitted = false;
         // Watch the emitted event Shipped()
-        let event = supplyChain.shipItem(upc);
-
+        let event6 = supplyChain.shipItem(upc);
+        await event6.watch((err,res)=>{
+            eventEmitted=true;
+         });
         // Mark an item as Sold by calling function buyItem()
         
                supplyChain.buyItem(upc);
@@ -198,8 +207,10 @@ contract('SupplyChain', function(accounts) {
         let event = false;
         
         // Watch the emitted event Received()
-        let event = supplyChain.received(upc);
-
+        let event7 = supplyChain.received(upc);
+        await event7.watch((err,res)=>{
+            eventEmitted=true;
+         });
         // Mark an item as Sold by calling function buyItem()
          
          supplyChain.buyItem(upc);
@@ -220,8 +231,10 @@ contract('SupplyChain', function(accounts) {
         let eventEmitted = false;
         
         // Watch the emitted event Purchased()
-          supplyChain.purchased(upc);
-
+         let event8=  supplyChain.purchased(upc);
+         await event8.watch((err,res)=>{
+            eventEmitted=true;
+         });
         // Mark an item as Sold by calling function buyItem()
         
         supplyChain.buyItem(upc);
