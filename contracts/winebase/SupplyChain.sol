@@ -263,7 +263,7 @@ require(items[_upc].itemState == State.Shipped);
      
     // Update the appropriate fields
    items[_upc].ownerID= items[_upc].distributorID;
-    items[_upc].distributorID = items[upc].distributorID;
+   items[_upc].distributorID = items[upc].distributorID;
    items[_upc].itemState == State.Shipped;
     // Emit the appropriate event
   emit    Shipped(_upc);
@@ -317,17 +317,17 @@ emit    Purchased(_upc);
   {
   // Assign values to the 8 parameters
   
-    
+      Item memory  bupc = items[_upc];
   return 
   (
-  itemSKU = items[_upc].sku,
-  itemUPC = items[_upc].upc,
-  ownerID = items[_upc].ownerID,
-  originGrapeGrowerID = items[_upc].originGrapeGrowerID,
-  originGrapeGrowerName = items[_upc].originGrapeGrowerName,
-  originGrapeGrowerInformation = items[_upc].originGrapeGrowerInformation,
-  originGrapeGrowerLatitude = items[upc]. originGrapeGrowerLatitude,
-  originGrapeGrowerLongitude = items[upc].originGrapeGrowerLongitude
+  itemSKU = bupc.sku,
+  itemUPC = _upc,
+   ownerID = bupc.ownerID,
+  originGrapeGrowerID =bupc.originGrapeGrowerID,
+  originGrapeGrowerName = bupc.originGrapeGrowerName,
+  originGrapeGrowerInformation = bupc.originGrapeGrowerInformation,
+  originGrapeGrowerLatitude = bupc.originGrapeGrowerLatitude,
+  originGrapeGrowerLongitude = bupc.originGrapeGrowerLongitude
   );
   }
 
@@ -339,7 +339,7 @@ emit    Purchased(_upc);
   uint    productID,
   string  productNotes,
   uint    productPrice,
-  State    itemState,
+  uint    itemState,
   address distributorID,
   address retailerID,
   address consumerID
@@ -347,18 +347,18 @@ emit    Purchased(_upc);
   {
     // Assign values to the 9 parameters
   
-    
+    Item memory  ups = items[_upc];
   return 
   (
-  itemSKU = items[_upc].sku,
-  itemUPC = items[_upc].upc,
-  productID = items[_upc].productID,
-  productNotes = items[_upc].productNotes,
-  productPrice = items[_upc].productPrice,
-  itemState = State.Shipped,
-  distributorID = items[upc].distributorID,
-  retailerID = items[upc].retailerID,
-  consumerID = items[upc].consumerID
+  itemSKU = ups.sku,
+  itemUPC = _upc,
+  productID = ups.productID,
+  productNotes = ups.productNotes,
+  productPrice = ups.productPrice,
+  itemState = 0,
+   distributorID = ups.distributorID,
+   retailerID = ups.retailerID,
+   consumerID = ups.consumerID
   );
   }
 }

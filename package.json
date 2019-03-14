@@ -28,7 +28,7 @@
     "ipfs-http-client": "^29.1.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5",
+    "react-scripts": "^2.1.8",
     "reactstrap": "^7.1.0",
     "truffle": "^4.1.15",
     "truffle-contract": "^4.0.7",
@@ -37,8 +37,10 @@
   },
   "dependencies": {
     "ethereumjs-testrpc": "^6.0.3",
+    "ethereumjs-util": "^6.1.0",
     "ganache-cli": "^6.2.3",
     "openzeppelin-solidity": "^2.0.0",
+    "truffle-artifactor": "^4.0.8",
     "typescript": "^3.3.3333",
     "webpack": "^4.29.6"
   },
