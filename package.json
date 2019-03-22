@@ -36,13 +36,19 @@
     "web3": "^1.0.0-beta.47"
   },
   "dependencies": {
+    "acorn": "^6.0.0",
+    "browserify": "^16.2.3",
+    "buffer": "^5.2.1",
+    "clientside-require": "^4.7.2",
     "ethereumjs-testrpc": "^6.0.3",
     "ethereumjs-util": "^6.1.0",
     "ganache-cli": "^6.2.3",
+    "ipfs": "^0.34.4",
+    "lite-server": "^2.4.0",
     "openzeppelin-solidity": "^2.0.0",
     "truffle-artifactor": "^4.0.8",
     "typescript": "^3.3.3333",
-    "webpack": "^4.29.6"
+    "webpack": "^4.28.3"
   },
   "eslintConfig": {
     "extends": "react-app"

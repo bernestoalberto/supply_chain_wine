@@ -1,6 +1,7 @@
 let HDWalletProvider = require("truffle-hdwallet-provider");
 
-let mnemonic ="crater close lunar fitness uphold glue morning resemble suspect cigar front roast";
+//let mnemonic ="crater close lunar fitness uphold glue morning resemble suspect cigar front roast";
+let mnemonic = "room slow toddler allow accuse jelly left portion muscle pigeon post powder";
 let account = "0x7311bd9c8e5a3d46f3d36d8e99820682335fb949";
 
 // console.log(providerk);
@@ -23,6 +24,11 @@ module.exports = {
             gas: 4500000,
             gasPrice: 10000000000,
         }
-    }
+    },
+    compilers: {
+        solc: {
+          version: "^0.5.0"
+        }
+      }
 };
 
