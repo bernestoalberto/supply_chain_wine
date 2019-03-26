@@ -1,4 +1,4 @@
-
+ 
 App = {
   web3Provider: null,
   contracts: {},
@@ -23,6 +23,7 @@ App = {
       buffer: null,
       account: null
     },
+   
   init: async function () {
       App.readForm();
       /// Setup access to blockchain
@@ -102,35 +103,6 @@ instantiateContract: function() {
       // Update state with the result.
       return App.state.ipfsHash= ipfsHash; 
     })
-},
-captureFile:function(event) {
-  event.preventDefault()
-  const file = event.target.files[0];
-  const reader = new window.FileReader();
-  if(file){
-  reader.readAsArrayBuffer(file);
-  reader.onloadend = () => {
-      App.state.buffer = new ArrayBuffer(reader.result);
-    console.log('buffer', App.state.buffer)
-  };
-}
-},
-
-onSubmit: function(event){
-  event.preventDefault()
-   const IPFS = require('ipfs-http-client');
-  const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-  ipfs.files.add(App.state.buffer, (error, result) => {
-    if(error) {
-      console.error(error)
-      return
-    }
-    App.simpleStorageInstance.set(result[0].hash, { from: App.state.account }).then((r) => {
-        console.log('ifpsHash', App.state.ipfsHash)
-        return App.state.ipfsHash = result[0].hash;
-    
-    })
-  })
 }
 ,
   initWeb3: async function () {
